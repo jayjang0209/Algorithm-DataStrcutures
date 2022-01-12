@@ -28,14 +28,19 @@ public final class ReverseInteger {
                 reversedValue.append(stringValue.charAt(i));
             }
         }
-        int reversedInt = Integer.parseInt(String.valueOf(reversedValue));
-        reversedInt = stringValue.charAt(0) == '-' ? -reversedInt : reversedInt;
+        try {
+            int reversedInt = Integer.parseInt(String.valueOf(reversedValue));
+            reversedInt = stringValue.charAt(0) == '-' ? -reversedInt : reversedInt;
 
-        if (reversedInt < -Math.pow(2, 31) || reversedInt > Math.pow(2, 31) - 1) {
+            if (reversedInt < -Math.pow(2, 31) || reversedInt > Math.pow(2, 31) - 1) {
+                return 0;
+            }
+
+            return reversedInt;
+
+        } catch (NumberFormatException e) {
             return 0;
         }
-
-        return reversedInt;
     }
 
     public static void main(String[] args) {
