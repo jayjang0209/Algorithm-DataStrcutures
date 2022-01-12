@@ -11,6 +11,19 @@ public final class ReverseInteger {
     private ReverseInteger() {
     }
 
+    /**
+     * Reverse a signed 32-bit integer.
+     * answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+     * answer[i] == "Fizz" if i is divisible by 3.
+     * answer[i] == "Buzz" if i is divisible by 5.
+     * answer[i] == i (as a string) if none of the above conditions are true.
+     *
+     * @param x an integer
+     * @return string array as a List
+     *
+     * Time Complexity: O(N)
+     * Space Complexity: O(N)
+     */
     public static int reverse(final int x) {
         if (x < -Math.pow(2, 31) || x > Math.pow(2, 31) - 1) {
             return 0;
@@ -40,10 +53,5 @@ public final class ReverseInteger {
         } catch (NumberFormatException e) {
             return 0;
         }
-    }
-
-    public static void main(String[] args) {
-        int test = 123;
-        System.out.println(reverse(test));
     }
 }
