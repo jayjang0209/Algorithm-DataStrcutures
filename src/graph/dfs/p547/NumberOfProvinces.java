@@ -22,30 +22,32 @@ public final class NumberOfProvinces {
      * @param isConnected as 2D array representing n x n matrix
      * @return total number of provinces as an int
      *
-     * Time Complexity: O(N)
-     * Space Complexity: O(1)
      */
     public static int findCircleNum(final int[][] isConnected) {
         int totalNumberOfProvinces = 0;
 
         int numberOfNode = isConnected.length;
-        int[] nodeVisited = new int[numberOfNode];
+        int[] nodeVisited = new int[numberOfNode]; // mark all vertices as not visited 0
 
         for (int v = 0; v < numberOfNode; v++) {
             if (nodeVisited[v] == 0) {
-                Stack<Integer> stack = new Stack<>();
+
+                Stack<Integer> stack = new Stack<>(); // Create a stack for DFS
                 stack.push(v);
+
                 while (!stack.empty()) {
-                    int vtx = stack.pop();
+                    int vtx = stack.pop(); // pop a vertex from stack
                     nodeVisited[vtx] = 1;
                     int[] adjList = isConnected[vtx];
-                    for (int j = 0; j < numberOfNode; j++) {
+                    for (int j = 0; j < numberOfNode; j++) { // get all adjacent vertices
                         int u = adjList[j];
+                        // only adjacent vertices that has not been visited
                         if (vtx != j && u == 1 && nodeVisited[j] == 0) {
                             stack.push(j);
                         }
                     }
                 }
+
                 totalNumberOfProvinces++;
             }
         }
