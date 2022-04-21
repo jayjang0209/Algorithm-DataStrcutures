@@ -14,7 +14,7 @@ public final class NumberOfProvinces {
     }
 
     /**
-     * Return the total number of provinces.
+     * Return the total number of provinces using Iterative DFS.
      *
      * a province: a group of directly or indirectly connected cities
      * and no other cities outside of the group
@@ -23,7 +23,7 @@ public final class NumberOfProvinces {
      * @return total number of provinces as an int
      *
      */
-    public static int findCircleNum(final int[][] isConnected) {
+    public static int findCircleNumUsingIterDFS(final int[][] isConnected) {
         int totalNumberOfProvinces = 0;
 
         int numberOfNode = isConnected.length;
@@ -47,11 +47,52 @@ public final class NumberOfProvinces {
                         }
                     }
                 }
-
                 totalNumberOfProvinces++;
             }
         }
         return totalNumberOfProvinces;
+    }
+
+    /**
+     * Return the total number of provinces using Recursive DFS.
+     *
+     * a province: a group of directly or indirectly connected cities
+     * and no other cities outside of the group
+     *
+     * @param isConnected as 2D array representing n x n matrix
+     * @return total number of provinces as an int
+     *
+     */
+    public static int findCircleNumUsingRecurDFS(final int[][] isConnected) {
+        int totalNumberOfProvinces = 0;
+
+        int numberOfNode = isConnected.length;
+        int[] nodeVisited = new int[numberOfNode]; // mark all vertices as not visited 0
+
+        for (int v = 0; v < numberOfNode; v++) {
+            if (nodeVisited[v] == 0) {
+                dfs(v, nodeVisited, isConnected);
+                totalNumberOfProvinces++;
+            }
+        }
+        return totalNumberOfProvinces;
+    }
+
+    /**
+     * Helper function for Depth-First Search(DFS).
+     *
+     * @param v an int representing a vertex
+     * @param nodeVisited an array representing vertex visit status
+     * @param isConnected as 2D array representing n x n matrix
+     */
+    public static void dfs(final int v, final int[] nodeVisited,
+                           final int[][] isConnected) {
+        nodeVisited[v] = 1;
+        for (int j = 0; j < nodeVisited.length; j++) {
+            if (isConnected[v][j] == 1 && nodeVisited[j] == 0) {
+                dfs(j, nodeVisited, isConnected);
+            }
+        }
     }
 
     /**
@@ -60,15 +101,16 @@ public final class NumberOfProvinces {
      * @param args not used
      */
     public static void main(final String[] args) {
+
         int[][] test1 = new int[3][3];
         test1[0] = new int[]{1, 1, 0};
         test1[1] = new int[]{1, 1, 0};
         test1[2] = new int[]{0, 0, 1};
 
         int[][] test2 = new int[3][3];
-        test1[0] = new int[]{1, 0, 0};
-        test1[1] = new int[]{0, 1, 0};
-        test1[2] = new int[]{0, 0, 1};
+        test2[0] = new int[]{1, 0, 0};
+        test2[1] = new int[]{0, 1, 0};
+        test2[2] = new int[]{0, 0, 1};
 
         int[][] test3 = new int[4][4];
         test3[0] = new int[]{1, 0, 0, 1};
@@ -76,9 +118,13 @@ public final class NumberOfProvinces {
         test3[2] = new int[]{0, 1, 1, 1};
         test3[3] = new int[]{1, 0, 1, 1};
 
-
-        System.out.println("number of provinces of test1: " + findCircleNum(test1));
-        System.out.println("number of provinces of test2: " + findCircleNum(test2));
-        System.out.println("number of provinces of test3: " + findCircleNum(test3));
+        System.out.println("Iterative DFS");
+        System.out.println("number of provinces of test1: " + findCircleNumUsingIterDFS(test1));
+        System.out.println("number of provinces of test2: " + findCircleNumUsingIterDFS(test2));
+        System.out.println("number of provinces of test3: " + findCircleNumUsingIterDFS(test3));
+        System.out.println("Recursive DFS");
+        System.out.println("number of provinces of test1: " + findCircleNumUsingRecurDFS(test1));
+        System.out.println("number of provinces of test1: " + findCircleNumUsingRecurDFS(test2));
+        System.out.println("number of provinces of test1: " + findCircleNumUsingRecurDFS(test3));
     }
 }
