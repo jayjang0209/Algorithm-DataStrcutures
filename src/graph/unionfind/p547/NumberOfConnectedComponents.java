@@ -8,20 +8,20 @@ import java.util.HashSet;
  * @author Jay Jang
  * @version Apr, 2022
  */
-public class NumberOfConnectedComponents {
+public final class NumberOfConnectedComponents {
 
-    public NumberOfConnectedComponents() {
+    private NumberOfConnectedComponents() {
     }
 
     /**
      * Return the total number of provinces using Iterative DFS.
-     *
+     * <p>
      * a province: a group of directly or indirectly connected cities
      * and no other cities outside of the group
      *
      * @param isConnected as 2D array representing n x n matrix
      * @return total number of provinces as an int
-     *
+     * <p>
      * Used Algorithm: Union-Find
      */
     public static int findNumberOfConnectedComponents(final int[][] isConnected) {
@@ -59,10 +59,10 @@ public class NumberOfConnectedComponents {
      * Find the topmost parent of a given node.
      *
      * @param parent an array containing the parent of each vertex
-     * @param node an int representing a vertex
+     * @param node   an int representing a vertex
      */
     public static int findParent(final int[] parent, int node) {
-        while( node != parent[node]) {
+        while (node != parent[node]) {
             node = parent[node];
         }
         return node;
@@ -72,11 +72,11 @@ public class NumberOfConnectedComponents {
      * Join first set containing the first node and second set containing the second node
      * into a single subset.
      *
-     * @param parent an array containing the parent of each vertex
-     * @param firstNode an int representing a vertex
+     * @param parent     an array containing the parent of each vertex
+     * @param firstNode  an int representing a vertex
      * @param secondNode an int representing a vertex
      */
-    public static void union(int[] parent, int firstNode, int secondNode) {
+    public static void union(final int[] parent, final int firstNode, final int secondNode) {
         int firstParent = findParent(parent, firstNode);
         int secondParent = findParent(parent, secondNode);
         parent[firstParent] = secondParent;
@@ -87,7 +87,7 @@ public class NumberOfConnectedComponents {
      *
      * @param args not used
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         int[][] test1 = new int[3][3];
         test1[0] = new int[]{1, 1, 0};
         test1[1] = new int[]{1, 1, 0};
@@ -105,12 +105,18 @@ public class NumberOfConnectedComponents {
         test3[3] = new int[]{1, 0, 1, 1};
 
         System.out.println("Iterative DFS");
-        System.out.println("number of provinces of test1: " + findNumberOfConnectedComponents(test1));
-        System.out.println("number of provinces of test2: " + findNumberOfConnectedComponents(test2));
-        System.out.println("number of provinces of test3: " + findNumberOfConnectedComponents(test3));
+        System.out.println("number of provinces of test1: "
+                + findNumberOfConnectedComponents(test1));
+        System.out.println("number of provinces of test2: "
+                + findNumberOfConnectedComponents(test2));
+        System.out.println("number of provinces of test3: "
+                + findNumberOfConnectedComponents(test3));
         System.out.println("Recursive DFS");
-        System.out.println("number of provinces of test1: " + findNumberOfConnectedComponents(test1));
-        System.out.println("number of provinces of test1: " + findNumberOfConnectedComponents(test2));
-        System.out.println("number of provinces of test1: " + findNumberOfConnectedComponents(test3));
+        System.out.println("number of provinces of test1: "
+                + findNumberOfConnectedComponents(test1));
+        System.out.println("number of provinces of test1: "
+                + findNumberOfConnectedComponents(test2));
+        System.out.println("number of provinces of test1: "
+                + findNumberOfConnectedComponents(test3));
     }
 }
