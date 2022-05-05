@@ -1,8 +1,5 @@
 package tree.binaryTree.traversal;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,17 +8,17 @@ public class binaryTreeInOrderTraversal {
 
     public List<Integer> inorderTraversal(TreeNode root) {
         LinkedList<Integer> inOrderTraversalNodes = new LinkedList<>();
-        inOrderTraversal(root, inOrderTraversalNodes);
+        dfs(root, inOrderTraversalNodes);
         return inOrderTraversalNodes;
     }
 
-    public void inOrderTraversal(TreeNode root, LinkedList<Integer> inOrderNodes) {
+    public void dfs(TreeNode root, LinkedList<Integer> inOrderNodes) {
         if (root == null) {
             return;
         }
-        inOrderTraversal(root.getLeft(), inOrderNodes);
+        dfs(root.getLeft(), inOrderNodes);
         inOrderNodes.addLast(root.getVal());
-        inOrderTraversal(root.getRight(), inOrderNodes);
+        dfs(root.getRight(), inOrderNodes);
     }
 
 }
