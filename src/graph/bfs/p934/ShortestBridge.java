@@ -22,7 +22,46 @@ public class ShortestBridge {
         return sp;
     }
 
+    public static int[][] DFS(final int[][] grid) {
+        int l = grid.length;
+        int[][] gridVisited = new int[l][l];
+        int islandNumber = 1;
 
+        // there are n * n number of nodes
+        for (int i = 0; i < l; i++) {
+            for (int j = 0; j < l; j++) {
+                if (grid[i][j] == 1 && gridVisited[i][j] == 0) {
+                    dfs(i, j, islandNumber, gridVisited, grid);
+                    islandNumber++;
+                }
+            }
+        }
+        return gridVisited;
+    }
+
+    public static void dfs(final int i, final int j, final int islandNumber, final int[][] gridVisited, final int[][] grid) {
+        gridVisited[i][j] = islandNumber;
+        int l = grid.length;
+
+        ArrayList<int[]> adj = new ArrayList<>();
+        if (i - 1 >= 0) {
+            adj.add(new int[]{i - 1, j});
+        }
+        if (i + 1 <= l - 1) {
+            adj.add(new int[]{i + 1, j});
+        }
+        if (j - 1 >= 0) {
+            adj.add(new int[]{i ,j - 1});
+        }
+        if (j + 1 <= l - 1) {
+            adj.add(new int[]{i ,j + 1});
+        }
+        for (int[] adjGrid : adj) {
+            if (grid[adjGrid[0]][adjGrid[1]] == 1 && gridVisited[adjGrid[0]][adjGrid[1]] == 0) {
+                dfs(adjGrid[0], adjGrid[1], islandNumber, gridVisited, grid);
+            }
+        }
+    }
 
 
     public static int[][] BFS(final int[][] grid) {
