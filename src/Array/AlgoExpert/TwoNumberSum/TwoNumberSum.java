@@ -1,4 +1,4 @@
-package Array.AlgoExpert_TwoNumberSum;
+package Array.AlgoExpert.TwoNumberSum;
 
 import java.util.Arrays;
 
