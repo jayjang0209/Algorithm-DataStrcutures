@@ -6,29 +6,23 @@ import java.util.List;
 
 public class ValidateSubsequence {
 
-    public static boolean isValidSubsequence(List<Integer> array, List<Integer> sequence) {
+    public static boolean isValidSubsequence(final List<Integer> array, final List<Integer> sequence) {
 
         if (array.size() == 1 && sequence.contains(array.get(0))) {
             return true;
         }
 
-        List<Integer> TempSequence = sequence;
-
         for (int i = 0; i < array.size(); i++) {
-            if (TempSequence.size() == 0) {
+            if (sequence.size() == 0) {
                 break;
             }
 
-            if(array.get(i) == TempSequence.get(0)) {
-                TempSequence.remove(0);
+            if (array.get(i) == sequence.get(0)) {
+                sequence.remove(0);
             }
         }
 
-        if (TempSequence.size() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return sequence.size() == 0;
     }
 
 
